@@ -2,6 +2,8 @@
 
 A premium, authentic custom dashboard card for Home Assistant that replicates the live status widget found on the Transport for London (TfL) website. 
 
+![TfL Tube Status Card](screenshot.png)
+
 It highlights lines with active disruptions (such as minor delays, severe delays, or closures) individually at the top and collapses all operational lines into a sleek, compact stack of color stripes at the bottom.
 
 ## Features
