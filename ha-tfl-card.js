@@ -428,15 +428,15 @@ class TfLStatusCard extends HTMLElement {
         .ha-tfl-card {
           font-family: var(--paper-font-body1_-_font-family), system-ui, -apple-system, sans-serif;
           background-color: #ffffff;
-          color: #333333;
+          color: var(--primary-text-color, #333333);
           border-radius: var(--ha-card-border-radius, 12px);
           border: var(--ha-card-border, 1px solid var(--divider-color, #e0e0e0));
           box-shadow: var(--ha-card-box-shadow, none);
           overflow: hidden;
 
-          --primary-text-color: #333333;
-          --secondary-text-color: #7f8c8d;
-          --divider-color: #e0e0e0;
+          --primary-text-color: var(--primary-text-color, #333333);
+          --secondary-text-color: var(--secondary-text-color, #7f8c8d);
+          --divider-color: var(--divider-color, #e0e0e0);
           --card-content-bg: #ffffff;
           --row-bg: #FAF6E9;
           --row-text-color: #00205B;
@@ -449,21 +449,21 @@ class TfLStatusCard extends HTMLElement {
         }
         @media (prefers-color-scheme: dark) {
           .ha-tfl-card {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: var(--ha-card-background, var(--card-background-color, #1c1c1c));
+            color: var(--primary-text-color, #ffffff);
 
-            --primary-text-color: #ffffff;
-            --secondary-text-color: #bbbbbb;
-            --divider-color: #333333;
-            --card-content-bg: #000000;
-            --row-bg: #121212;
-            --row-text-color: #ffffff;
-            --row-hover-bg: #1e1e1e;
-            --row-border-color: #000000;
-            --row-details-bg: #1c1c1c;
-            --row-details-text-color: #e0e0e0;
+            --primary-text-color: var(--primary-text-color, #ffffff);
+            --secondary-text-color: var(--secondary-text-color, #bbbbbb);
+            --divider-color: var(--divider-color, #333333);
+            --card-content-bg: var(--ha-card-background, var(--card-background-color, #1c1c1c));
+            --row-bg: var(--ha-card-background, var(--card-background-color, #1c1c1c));
+            --row-text-color: var(--primary-text-color, #ffffff);
+            --row-hover-bg: var(--secondary-background-color, #222222);
+            --row-border-color: var(--divider-color, #333333);
+            --row-details-bg: var(--ha-card-background, var(--card-background-color, #1c1c1c));
+            --row-details-text-color: var(--primary-text-color, #ffffff);
             --spinner-track-color: rgba(255, 255, 255, 0.1);
-            --error-bg: #2a1b1b;
+            --error-bg: var(--ha-card-background, var(--card-background-color, #1c1c1c));
           }
         }
         .card-header {
