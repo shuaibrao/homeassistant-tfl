@@ -427,16 +427,48 @@ class TfLStatusCard extends HTMLElement {
         }
         .ha-tfl-card {
           font-family: var(--paper-font-body1_-_font-family), system-ui, -apple-system, sans-serif;
-          color: var(--primary-text-color);
-          background-color: var(--ha-card-background, var(--card-background-color, #ffffff));
+          background-color: #ffffff;
+          color: #333333;
           border-radius: var(--ha-card-border-radius, 12px);
           border: var(--ha-card-border, 1px solid var(--divider-color, #e0e0e0));
           box-shadow: var(--ha-card-box-shadow, none);
           overflow: hidden;
+
+          --primary-text-color: #333333;
+          --secondary-text-color: #7f8c8d;
+          --divider-color: #e0e0e0;
+          --card-content-bg: #ffffff;
+          --row-bg: #FAF6E9;
+          --row-text-color: #00205B;
+          --row-hover-bg: #f5eed3;
+          --row-border-color: #ffffff;
+          --row-details-bg: #fdfbf7;
+          --row-details-text-color: #333333;
+          --spinner-track-color: rgba(0, 32, 91, 0.1);
+          --error-bg: #fdf5f5;
+        }
+        @media (prefers-color-scheme: dark) {
+          .ha-tfl-card {
+            background-color: #000000;
+            color: #ffffff;
+
+            --primary-text-color: #ffffff;
+            --secondary-text-color: #bbbbbb;
+            --divider-color: #333333;
+            --card-content-bg: #000000;
+            --row-bg: #121212;
+            --row-text-color: #ffffff;
+            --row-hover-bg: #1e1e1e;
+            --row-border-color: #000000;
+            --row-details-bg: #1c1c1c;
+            --row-details-text-color: #e0e0e0;
+            --spinner-track-color: rgba(255, 255, 255, 0.1);
+            --error-bg: #2a1b1b;
+          }
         }
         .card-header {
           padding: 16px;
-          border-bottom: 1.5px solid var(--divider-color, #e0e0e0);
+          border-bottom: 1.5px solid var(--divider-color);
         }
         .card-title {
           font-size: 16px;
@@ -448,16 +480,16 @@ class TfLStatusCard extends HTMLElement {
           padding: 0;
           display: flex;
           flex-direction: column;
-          background-color: #ffffff;
+          background-color: var(--card-content-bg);
         }
         
         /* Row structure */
         .tfl-row {
           display: flex;
           flex-direction: column;
-          border-bottom: 2px solid #ffffff;
+          border-bottom: 2px solid var(--row-border-color);
           box-sizing: border-box;
-          background-color: #FAF6E9;
+          background-color: var(--row-bg);
         }
         .tfl-row:last-child {
           border-bottom: none;
@@ -479,7 +511,7 @@ class TfLStatusCard extends HTMLElement {
           font-size: 13px;
           text-align: center;
           box-sizing: border-box;
-          border-right: 2px solid #ffffff;
+          border-right: 2px solid var(--row-border-color);
           line-height: 1.2;
           letter-spacing: 0.2px;
           text-shadow: 0 0 1px rgba(0,0,0,0.1);
@@ -489,7 +521,7 @@ class TfLStatusCard extends HTMLElement {
           display: flex;
           flex-direction: column;
           align-self: stretch;
-          border-right: 2px solid #ffffff;
+          border-right: 2px solid var(--row-border-color);
           box-sizing: border-box;
         }
         .tfl-stripe {
@@ -508,8 +540,8 @@ class TfLStatusCard extends HTMLElement {
           align-items: center;
           justify-content: space-between;
           padding: 8px 16px;
-          background-color: #FAF6E9;
-          color: #00205B;
+          background-color: var(--row-bg);
+          color: var(--row-text-color);
           box-sizing: border-box;
           font-size: 13.5px;
           font-weight: 500;
@@ -536,7 +568,7 @@ class TfLStatusCard extends HTMLElement {
         .tfl-chevron svg {
           width: 20px;
           height: 20px;
-          fill: #00205B;
+          fill: var(--row-text-color);
         }
         .tfl-row.expanded .tfl-chevron {
           transform: rotate(90deg);
@@ -547,7 +579,7 @@ class TfLStatusCard extends HTMLElement {
           cursor: pointer;
         }
         .interactive:hover .tfl-status-col {
-          background-color: #f5eed3;
+          background-color: var(--row-hover-bg);
         }
         
         /* Details panel styling */
@@ -555,15 +587,15 @@ class TfLStatusCard extends HTMLElement {
           max-height: 0;
           overflow: hidden;
           transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          background-color: #fdfbf7;
-          border-top: 1.5px solid #ffffff;
+          background-color: var(--row-details-bg);
+          border-top: 1.5px solid var(--row-border-color);
         }
         .tfl-details-content {
           padding: 12px 16px;
-          color: #333333;
+          color: var(--row-details-text-color);
           font-size: 12.5px;
           line-height: 1.45;
-          border-bottom: 1.5px solid rgba(0, 0, 0, 0.05);
+          border-bottom: 1.5px solid var(--divider-color);
         }
         .tfl-disruption-reason {
           margin-bottom: 8px;
@@ -576,7 +608,7 @@ class TfLStatusCard extends HTMLElement {
         .good-service-detail-title {
           font-weight: bold;
           margin-bottom: 8px;
-          color: #00205B;
+          color: var(--row-text-color);
           font-size: 13px;
         }
         .good-service-list {
@@ -612,19 +644,19 @@ class TfLStatusCard extends HTMLElement {
           align-items: center;
           justify-content: center;
           gap: 12px;
-          background-color: #FAF6E9;
+          background-color: var(--row-bg);
         }
         .spinner {
           width: 28px;
           height: 28px;
-          border: 3px solid rgba(0, 32, 91, 0.1);
-          border-top-color: #00205B;
+          border: 3px solid var(--spinner-track-color);
+          border-top-color: var(--row-text-color);
           border-radius: 50%;
           animation: spin 1s linear infinite;
         }
         .loader-text {
           font-size: 13px;
-          color: #00205B;
+          color: var(--row-text-color);
           font-weight: 500;
         }
         .error-container {
@@ -633,7 +665,7 @@ class TfLStatusCard extends HTMLElement {
           flex-direction: column;
           align-items: center;
           text-align: center;
-          background-color: #fdf5f5;
+          background-color: var(--error-bg);
         }
         .error-title {
           font-weight: bold;
@@ -643,7 +675,7 @@ class TfLStatusCard extends HTMLElement {
         }
         .error-message {
           font-size: 12px;
-          color: #7f8c8d;
+          color: var(--secondary-text-color);
           margin-bottom: 12px;
           line-height: 1.4;
         }
@@ -665,8 +697,8 @@ class TfLStatusCard extends HTMLElement {
           padding: 24px 16px;
           text-align: center;
           font-size: 13px;
-          color: #7f8c8d;
-          background-color: #FAF6E9;
+          color: var(--secondary-text-color);
+          background-color: var(--row-bg);
         }
         
         @keyframes spin {
