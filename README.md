@@ -22,8 +22,8 @@ It highlights lines with active disruptions (such as minor delays, severe delays
 
 1. Open **HACS** (Home Assistant Community Store) in your Home Assistant panel.
 2. Click the three dots `...` in the top right corner and select **Custom repositories**.
-3. Paste the URL of this repository: `https://github.com/yourusername/ha_tfl_widget` (replace with your repository url once pushed).
-4. Set the Category to **Lovelace** (or **Frontend**).
+3. Paste the URL of this repository: `https://github.com/shuaibrao/homeassistant-tfl`.
+4. Set the Type to **Dashboard**.
 5. Click **Add**.
 6. Find "TfL Tube Status Card" in HACS, click **Download**, and restart your frontend if prompted (HACS will register the resource automatically).
 
