@@ -207,6 +207,7 @@ class TfLStatusCard extends HTMLElement {
                      stateObj.attributes.message || 
                      '';
                      
+      const uniqueReasons = isGoodService || !reason ? [] : [reason.trim()];
       lines.push({
         id: lineId,
         name: meta.name,
@@ -219,7 +220,8 @@ class TfLStatusCard extends HTMLElement {
             severityText: stateStr,
             reason: isGoodService ? '' : reason
           }
-        ]
+        ],
+        reasons: uniqueReasons
       });
     }
     return lines;
@@ -242,6 +244,17 @@ class TfLStatusCard extends HTMLElement {
         ? [{ severityText: 'Good service', reason: '' }] 
         : activeStatuses;
         
+      // Extract unique, normalized reasons
+      const uniqueReasons = [];
+      for (const s of statuses) {
+        if (!s.reason) continue;
+        const cleaned = s.reason.trim();
+        const norm = cleaned.toLowerCase().replace(/\s+/g, ' ').replace(/\.$/, '');
+        if (!uniqueReasons.some(r => r.toLowerCase().replace(/\s+/g, ' ').replace(/\.$/, '') === norm)) {
+          uniqueReasons.push(cleaned);
+        }
+      }
+
       return {
         id: line.id,
         name: meta.name || line.name,
@@ -249,7 +262,8 @@ class TfLStatusCard extends HTMLElement {
         color: meta.color,
         textColor: meta.text_color || '#FFFFFF',
         isGoodService,
-        statuses
+        statuses,
+        reasons: uniqueReasons
       };
     });
   }
@@ -324,23 +338,11 @@ class TfLStatusCard extends HTMLElement {
       // Render disrupted lines
       for (const line of disrupted) {
         const isExpanded = this._expandedLines.has(line.id);
-        const hasReason = line.statuses.some(s => s.reason);
+        const hasReason = line.reasons && line.reasons.length > 0;
         const hoverClass = hasReason ? 'interactive' : '';
         const expandedClass = isExpanded ? 'expanded' : '';
         
-        let reasonsHtml = '';
-        if (hasReason) {
-          const uniqueReasons = [];
-          for (const s of line.statuses) {
-            if (!s.reason) continue;
-            const cleaned = s.reason.trim();
-            const norm = cleaned.toLowerCase().replace(/\s+/g, ' ').replace(/\.$/, '');
-            if (!uniqueReasons.some(r => r.toLowerCase().replace(/\s+/g, ' ').replace(/\.$/, '') === norm)) {
-              uniqueReasons.push(cleaned);
-            }
-          }
-          reasonsHtml = uniqueReasons.map(r => `<div class="tfl-disruption-reason">${r}</div>`).join('');
-        }
+        const reasonsHtml = line.reasons ? line.reasons.map(r => `<div class="tfl-disruption-reason">${r}</div>`).join('') : '';
 
         rows.push(`
           <div class="tfl-row ${expandedClass} ${hoverClass}" data-line-id="${line.id}">
